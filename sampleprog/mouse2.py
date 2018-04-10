@@ -1,12 +1,18 @@
 import pyautogui as pg
-print('中断するにはCtrl-Cを押してください。')
+from time import clock,sleep
+print('中断するにはCtrl+Cを押してください。')
 
 try:
+    count = 0
+    file1 = open("log.txt","w") 
     while True:
         x, y = pg.position()
         position_str = 'X: ' + str(x).rjust(4) + ' Y: ' + str(y).rjust(4)
-        print(position_str,end='')
-        print("\r", end='', flush=True) 
-
+        sleep(1)
+        if(int(clock())%3 == 0):    
+            file1.write(position_str + "\n")
+            count += 1
+        if(count == 20):
+            break
 except KeyboardInterrupt:
-    print('\n終わり')
+    print("おわり %d回"%count)
